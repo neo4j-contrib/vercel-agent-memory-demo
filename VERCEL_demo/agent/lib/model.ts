@@ -39,18 +39,20 @@ export function baseModel(id: string = MODEL_ID): LanguageModelV4 {
 
 export function resolveModel(): LanguageModelV4 {
   const mode = memoryMode();
+  const model = baseModel();
 
   if (mode === "provider") {
     return createNamsProvider({
       ...namsConfig(),
       baseProvider: (modelId: string) => baseModel(modelId),
+      extractionModel: model,
       scope: namsScope(),
     }).languageModel(MODEL_ID) as LanguageModelV4;
   }
 
   if (mode === "middleware") {
-    return createNams(namsConfig()).wrap(baseModel(), namsScope());
+    return createNams({ ...namsConfig(), extractionModel: model }).wrap(model, namsScope());
   }
 
-  return baseModel();
+  return model;
 }

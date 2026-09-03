@@ -11,6 +11,7 @@
     "check": "node scripts/check-setup.mjs",
     "demo": "node scripts/memory-demo.mjs",
     "mcp": "tsx mcp-server/src/server.ts",
+    "mcp:graph": "node scripts/mcp-graph.mjs",
     "dev": "node scripts/dev.mjs",
     "chat": "eve dev",
     "build": "next build",

@@ -13,4 +13,9 @@ node_modules
 dist
 *.tsbuildinfo
 
+# Local Python environment and bytecode
+.venv/
+__pycache__/
+*.py[cod]
+
 .DS_Store
