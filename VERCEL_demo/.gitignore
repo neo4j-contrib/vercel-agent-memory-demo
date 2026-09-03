@@ -1,0 +1,16 @@
+node_modules
+
+# Secrets. .env.example is the template and IS committed — everything else isn't.
+.env*
+!.env.example
+
+# Build output and caches
+.next
+.output
+.nitro
+.eve
+.vercel
+dist
+*.tsbuildinfo
+
+.DS_Store

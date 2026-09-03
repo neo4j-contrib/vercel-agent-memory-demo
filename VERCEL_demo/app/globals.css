@@ -1,0 +1,17 @@
+:root {
+  --app-header-height: 64px;
+  --app-header-padding: 0 16px;
+  --app-logo-height: 32px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --app-header-height: 52px;
+    --app-header-padding: 0 8px;
+    --app-logo-height: 26px;
+  }
+}
+
+.full-width-content {
+  --content-extra-light-max-width: 100%;
+}
