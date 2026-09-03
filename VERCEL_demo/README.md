@@ -129,6 +129,9 @@ gives you working values. See [`docs/mcp-connections.md`](docs/mcp-connections.m
 | `MCP_AUTH` | auto | Force `none`, `basic` or `bearer`. Auto picks from the credentials you set. |
 | `MCP_NEO4J_USERNAME` / `MCP_NEO4J_PASSWORD` | — | Basic auth for `MCP_URL`. The hosted demo takes `companies` / `companies`. |
 | `MCP_BEARER_TOKEN` | — | Bearer token for an Aura MCP instance. |
+| `NEO4J_MCP_BIN` | — | Path to the local `neo4j-mcp-server` executable. Normally discovered from `.venv` or `PATH`. |
+| `NEO4J_MCP_READ_ONLY` | `true` | Keep the local graph MCP server read-only. Set `false` only when write access is intentional. |
+| `NEO4J_TELEMETRY` | `false` | Enable or disable telemetry in the local graph MCP server. |
 | `INVESTMENTS_MCP_URL` | `http://localhost:8100/mcp` in `.env.example` | The local MCP server in `mcp-server/`. Blank means `get_investments` is off. |
 
 Every one of these is explained in [`docs/mcp-connections.md`](docs/mcp-connections.md)
@@ -164,6 +167,23 @@ second terminal:
 ```bash
 npm run mcp
 ```
+
+To give the agent the generic Neo4j graph tools (`get-schema` and
+`read-cypher`) without using a hosted MCP endpoint, install Neo4j's MCP server
+once and run it in another terminal:
+
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install neo4j-mcp-server
+npm run mcp:graph
+```
+
+Set `MCP_URL=http://localhost:8000/mcp` (or leave it blank; the launcher uses
+that address by default) and set `MCP_NEO4J_USERNAME` and
+`MCP_NEO4J_PASSWORD` to the Neo4j database credentials. In HTTP mode, the
+server reads those credentials from each agent request rather than from its own
+environment. `npm run mcp:graph` verifies that `MCP_URL` ends in `/mcp`, uses
+the existing `NEO4J_URI` and `NEO4J_DATABASE`, and defaults to read-only access.
 
 Both graph connections are optional — the agent starts fine without either and
 just has fewer tools, logging which one it skipped and why.
