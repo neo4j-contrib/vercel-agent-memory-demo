@@ -1,4 +1,4 @@
-# Neo4j Agent Memory Workshop
+# Neo4j Agent Memory Workshop 
 
 Giving an AI agent memory that survives a closed tab — built twice, in two
 languages, at two levels of abstraction.
