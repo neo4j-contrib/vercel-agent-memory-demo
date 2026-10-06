@@ -1,10 +1,22 @@
-import type { MemoryClient } from "@neo4j-labs/agent-memory";
+import { RestTransport, type MemoryClient } from "@neo4j-labs/agent-memory";
 import {
   makeClient,
   type MemoryHit,
   type NamsConfig,
   type NamsScope,
 } from "@neo4j-labs/nams-ai-provider";
+
+// The SDK always sends `threshold` on search_messages, but the hosted REST API
+// now rejects it with 400 "unknown field: threshold". Strip it for every client,
+// including the ones nams-ai-provider builds internally.
+const restRequest = RestTransport.prototype.request;
+RestTransport.prototype.request = function (this: RestTransport, method, params) {
+  if (method === "search_messages" && params && "threshold" in params) {
+    const { threshold: _threshold, ...rest } = params;
+    return restRequest.call(this, method, rest);
+  }
+  return restRequest.call(this, method, params);
+} as typeof restRequest;
 
 export type MemoryMode = "provider" | "middleware" | "tools" | "hooks" | "off";
 

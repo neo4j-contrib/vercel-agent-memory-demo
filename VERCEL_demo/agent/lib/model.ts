@@ -45,13 +45,12 @@ export function resolveModel(): LanguageModelV4 {
     return createNamsProvider({
       ...namsConfig(),
       baseProvider: (modelId: string) => baseModel(modelId),
-      extractionModel: model,
       scope: namsScope(),
     }).languageModel(MODEL_ID) as LanguageModelV4;
   }
 
   if (mode === "middleware") {
-    return createNams({ ...namsConfig(), extractionModel: model }).wrap(model, namsScope());
+    return createNams(namsConfig()).wrap(model, namsScope());
   }
 
   return model;

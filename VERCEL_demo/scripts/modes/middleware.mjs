@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "../nams-threshold-fix.mjs";
 import { readFileSync } from "node:fs";
 import { generateText, gateway } from "ai";
 import { createOpenAI, openai } from "@ai-sdk/openai";

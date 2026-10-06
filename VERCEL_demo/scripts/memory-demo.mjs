@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import "./nams-threshold-fix.mjs";
 import { readFileSync } from "node:fs";
 import { MemoryClient } from "@neo4j-labs/agent-memory";
 
@@ -36,8 +37,8 @@ try {
   });
   console.log(`  3. Stored entity "${entity.name}" (${entity.type})`);
 
-  const found = await memory.longTerm.searchEntities("robotics project", { limit: 5 });
-  console.log(`  4. Searched "robotics project" → ${found.length} result(s)`);
+  const found = await memory.longTerm.searchEntities("Aditya", { limit: 5 });
+  console.log(`  4. Searched "Aditya" → ${found.length} result(s)`);
   for (const e of found) {
     console.log(`     • ${e.name} (${e.type})${e.description ? ` — ${e.description}` : ""}`);
   }
